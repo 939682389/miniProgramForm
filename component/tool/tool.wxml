@@ -1,0 +1,80 @@
+<!--component/tool/tool.wxml-->
+<view>
+  <view class="title-input">
+    <!-- 标题 -->
+    <text class="necessary-text">*</text>
+    <input placeholder="拼团名称"  bindinput="inputTitle"></input>
+  </view>
+  <view class="item-text"  wx:for="{{contents}}">
+    <view class="title">
+      <text class="title-text">{{item.type}}</text>
+      <view class="tool-bar">
+        <text class="cuIcon-pullup {{index==0?'tool-dis':''}}" bindtap="itemUp" data-index="{{index}}"></text>
+        <text class="cuIcon-pulldown {{index==contents.length-1?'tool-dis':''}}" bindtap="itemDown" data-index="{{index}}"></text>
+        <text class="cuIcon-roundclose" bindtap="itemClose" data-index="{{index}}"></text>
+      </view>
+    </view>
+    <!-- 文字 -->
+
+    <view wx:if="{{item.type=='文字'}}">
+      <textarea bindinput="inputText" value="{{item.content}}" data-index="{{index}}" placeholder="请输入文字" >
+      </textarea>
+    </view>
+    <!-- 大图 -->
+    <view wx:elif="{{item.type=='大图'}}">
+      <view class="grid-square flex-sub grid col-3 padding" wx:if="{{item.content.length==0}}">
+        <view class="solids" bindtap="chooseImage" data-index="{{index}}">
+          <text class="cuIcon-cameraadd"></text>
+        </view>
+      </view>
+      <view wx:else class=" grid-square flex-sub grid col-1">
+        <view class="bg-img" wx:for="{{item.content}}" wx:for-item="citem" wx:for-index="cidx">
+          <image src="{{citem}}" mode='aspectFill'></image>
+          <view class="cu-tag bg-gray" bindtap="DelImg" data-index="{{index}}" data-cidx="{{cidx}}">
+            <text class="cuIcon-close"></text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!-- 小图 -->
+    <view wx:elif="{{item.type=='小图'}}">
+      <view class=" grid-square flex-sub grid col-3 padding">
+        <view class="bg-img" wx:for="{{item.content}}" wx:for-item="citem" wx:for-index="cidx">
+          <image src="{{citem}}" mode='aspectFill'></image>
+          <view class="cu-tag bg-gray" bindtap="DelImg" data-index="{{index}}" data-cidx="{{cidx}}">
+            <text class="cuIcon-close"></text>
+          </view>
+        </view>
+        <view class="solids" bindtap="chooseImage" data-index="{{index}}">
+          <text class="cuIcon-cameraadd"></text>
+        </view>
+      </view>
+    </view>
+    <!-- 视频 -->
+    <view wx:elif="{{item.type=='视频'}}">
+      <view class="grid-square flex-sub grid col-3 padding" wx:if="{{item.content.length==0}}">
+        <view class="solids" bindtap="chooseVideo" data-index="{{index}}">
+          <text class="cuIcon-video"></text>
+        </view>
+      </view>
+      <view wx:else class=" grid-square flex-sub grid col-1">
+        <view class="bg-img" wx:for="{{item.content}}" wx:for-item="citem" wx:for-index="cidx">
+          <video src="{{citem}}" style="width:100%;"></video>
+          <view class="cu-tag bg-gray" bindtap="DelImg" data-index="{{index}}" data-cidx="{{cidx}}">
+            <text class="cuIcon-close"></text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+<!-- 选择栏 -->
+  <view class="grid col-4">
+    <view class="button-item" wx:for="{{buttons}}" bindtap="addContent" data-item="{{item}}">
+      <text class="{{item.icon}} icon"></text>
+      <text>{{item.name}}</text>
+    </view>
+  </view>
+
+
+</view>

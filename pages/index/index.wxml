@@ -1,0 +1,2 @@
+<tool id="tool" ></tool>
+<button bindtap="get">button</button>
