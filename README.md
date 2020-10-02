@@ -26,3 +26,4 @@
 ```
 wechat: zjk939682389
 ```
+![image](https://github.com/939682389/miniProgramForm/blob/master/WechatIMG12.jpeg)
